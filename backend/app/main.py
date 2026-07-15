@@ -1,11 +1,15 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
+from app.routes import router
+
 app = FastAPI(
     title="Enterprise AI Platform",
     description="Production-ready AI Platform",
     version="0.1.0"
 )
+
+app.include_router(router)
 
 
 @app.get("/")
