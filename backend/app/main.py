@@ -1,30 +1,25 @@
 from fastapi import FastAPI
-from fastapi.responses import JSONResponse
 
 from app.api import router
+from app.health import health_check
 
 app = FastAPI(
     title="Enterprise AI Platform",
     version="0.1.0",
-    description="Enterprise AI Platform"
+    description="Production AI Platform"
 )
 
 app.include_router(router)
 
 
 @app.get("/")
-async def home():
+async def root():
     return {
         "application": "Enterprise AI Platform",
-        "status": "running",
         "version": "0.1.0"
     }
 
 
 @app.get("/health")
 async def health():
-    return JSONResponse(
-        {
-            "status": "healthy"
-        }
-    )
+    return health_check()
