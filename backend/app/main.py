@@ -1,12 +1,12 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
-from app.routes import router
+from app.api import router
 
 app = FastAPI(
     title="Enterprise AI Platform",
-    description="Production-ready AI Platform",
-    version="0.1.0"
+    version="0.1.0",
+    description="Enterprise AI Platform"
 )
 
 app.include_router(router)
@@ -14,13 +14,11 @@ app.include_router(router)
 
 @app.get("/")
 async def home():
-    return JSONResponse(
-        {
-            "project": "Enterprise AI Platform",
-            "version": "0.1.0",
-            "status": "running"
-        }
-    )
+    return {
+        "application": "Enterprise AI Platform",
+        "status": "running",
+        "version": "0.1.0"
+    }
 
 
 @app.get("/health")
