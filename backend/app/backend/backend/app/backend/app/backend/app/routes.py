@@ -1,5 +1,8 @@
 from fastapi import APIRouter
 
+from app.models import ChatRequest
+from app.services import ai_service
+
 router = APIRouter()
 
 
@@ -12,8 +15,9 @@ async def status():
     }
 
 
-@router.get("/api/version")
-async def version():
-    return {
-        "version": "0.1.0"
-    }
+@router.post("/api/chat")
+async def chat(request: ChatRequest):
+    return await ai_service.chat(
+        request.message,
+        request.session_id
+    )
